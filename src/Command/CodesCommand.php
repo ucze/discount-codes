@@ -79,15 +79,18 @@ class CodesCommand extends Command
                 exit();
             }
             $this->fs->dumpFile($filename, implode(", ", $codes));
-            //something
             $output->writeln(['<info>Codes successfuly created</info>',  '============']);
-        } else {
-            $output->writeln(['============',"<error>Validation Errors</error>", '============']);
-            foreach ($form->all() as $record) {
-                $name = $record->getName();
-                if ($name !== 'generate' && $record->getErrors()->getChildren()) {
-                    $output->writeln('<error>'. $name . '</error> - <comment>' . $record->getErrors()->getChildren()->getMessage().'</comment>');;
-                }
+            exit();
+        }
+        $this->listErrors($output, $form);
+    }
+
+    protected function listErrors(OutputInterface $output, $form){
+        $output->writeln(['============',"<error>Validation Errors</error>", '============']);
+        foreach ($form->all() as $record) {
+            $name = $record->getName();
+            if ($name !== 'generate' && $record->getErrors()->getChildren()) {
+                $output->writeln('<error>'. $name . '</error> - <comment>' . $record->getErrors()->getChildren()->getMessage().'</comment>');;
             }
         }
     }
