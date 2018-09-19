@@ -8,8 +8,17 @@ use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+/**
+ * Class CodeType
+ * @package App\Form
+ */
 class CodeType extends AbstractType
 {
+    /**
+     * Form validator
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -21,4 +30,5 @@ class CodeType extends AbstractType
             ->getForm();
         ;
     }
+
 }

@@ -4,12 +4,28 @@ namespace App\Service;
 
 use App\Util\CodesInterface;
 
+/**
+ * Class CodesService
+ * @package App\Service
+ */
 class CodesService implements CodesInterface
 {
+    /**
+     * List of all possible characters
+     */
     protected const CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+    /**
+     * Safety Buffer ( 0 - 100 )%
+     */
     protected const BUFFER = 10;
 
+    /**
+     * Generates unique discout codes, if amount requested is to big returns null
+     * @param int $numberOfCodes
+     * @param int $lengthOfCodes
+     * @return array|null
+     */
     public function generate(int $numberOfCodes, int $lengthOfCodes): ?array
     {
         if ($this->getMaxResults($lengthOfCodes) < $numberOfCodes) return null;
@@ -33,6 +49,11 @@ class CodesService implements CodesInterface
         return $codes;
     }
 
+    /**
+     * Returns max possible results reduced by safety buffer
+     * @param int $lengthOfCodes
+     * @return float|int
+     */
     protected function getMaxResults(int $lengthOfCodes)
     {
         $maxResults = pow(strlen(self::CHARS), $lengthOfCodes) * (abs(100 - self::BUFFER) / 100);

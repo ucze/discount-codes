@@ -9,16 +9,31 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
+/**
+ * Class CodesController
+ * @package App\Controller
+ */
 class CodesController extends AbstractController
 {
+    /**
+     * @var CodesInterface
+     */
     private $codesService;
 
+    /**
+     * CodesController constructor.
+     * @param CodesInterface $codes
+     */
     public function __construct(CodesInterface $codes)
     {
         $this->codesService = $codes;
     }
 
+    /**
+     * Generate method, displays form, generates discount codes and exposes file as attachment
+     * @param Request $request
+     * @return Response
+     */
     public function generate(Request $request)
     {
         $form = $this->createForm(CodeType::class);
